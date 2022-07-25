@@ -1,0 +1,49 @@
+# ===================================================================
+# Spring Boot configuration for the "dev" profile.
+#
+# This configuration overrides the application.yml file.
+#
+# ===================================================================
+server:
+  port: 8081
+
+logging:
+  level:
+    ROOT: DEBUG
+    org.hibernate.SQL: DEBUG
+    com.blank.project: DEBUG
+
+spring:
+  devtools:
+    restart:
+      enabled: false
+  jackson:
+    serialization:
+      indent-output: true
+  datasource:
+    url: jdbc:h2:mem:blankproject;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: blankProject
+    password:
+    minimum-idle: 10 # The minimum number of established connections that should be kept in the pool at all times.
+    maximum-pool-size: 50 # The maximum number of connections that should be kept in the pool at all times.
+    idle-timeout: 30000 # The maximum amount of time in milliseconds that a connection is allowed to sit idle in connection pool
+    max-lifetime: 60000 # The maximum lifetime of a connection in the pool
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+  h2:
+    console:
+      # disable spring boot built-in h2-console since we start it manually with correct configuration
+      enabled: false
+  jpa:
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.H2Dialect
+      ddl-auto: create
+    pageable:
+      page-size: 100
+  liquibase:
+    enabled: false
+  thymeleaf:
+    cache: false
